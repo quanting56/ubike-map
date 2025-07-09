@@ -58,7 +58,7 @@
 
           <div class="station-detail-info">
             <i class="fas fa-baby"></i>
-            <span>總停車格： {{ s.total }} 格</span>
+            <span>總停車格： {{ s.Quantity }} 格</span>
           </div>
 
           <div class="station-detail-info">

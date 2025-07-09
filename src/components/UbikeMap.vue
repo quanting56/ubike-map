@@ -72,11 +72,11 @@ onMounted(async () => {
 
       markers.forEach((marker) => {
         const station = marker.options.station;
-        if (station && station.total > 0) {
-          totalRatio += station.available_rent_bikes / station.total;
+        if (station && station.Quantity > 0) {
+          totalRatio += station.available_rent_bikes / station.Quantity;
           validCount++;
           clusterAvailableRentBikes += station.available_rent_bikes;
-          clusterTotal += station.total;
+          clusterTotal += station.Quantity;
         }
       });
 
@@ -142,7 +142,9 @@ watch(
     newList.forEach((station) => {
       if (station.latitude != null && station.longitude != null) {
         const rentRatio =
-          station.total > 0 ? station.available_rent_bikes / station.total : 0;
+          station.Quantity > 0
+            ? station.available_rent_bikes / station.Quantity
+            : 0;
 
         const colorScale = d3
           .scaleSequential(d3.interpolateRdYlGn)
