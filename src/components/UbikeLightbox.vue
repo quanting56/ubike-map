@@ -21,7 +21,7 @@
                   </tr>
                   <tr>
                     <th>場站總停車格</th>
-                    <td>{{ ubikeStore.selectedStation.total }}</td>
+                    <td>{{ ubikeStore.selectedStation.Quantity }}</td>
                   </tr>
                   <tr>
                     <th>場站目前車輛數量</th>
