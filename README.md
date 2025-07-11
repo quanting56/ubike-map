@@ -36,7 +36,7 @@
 - **地圖繪製**：Leaflet.js
 - **調色**：D3.js scaleSequential（序列比例尺） + interpolator（顏色插值）
 - **狀態管理**：Pinia
-- **路由**：Vue Router（已初始化但暫未使用）
+- **路由**：<s>Vue Router</s>（已初始化但本專案暫未使用，未來預計）
 - **打包**：Vue CLI (`vue.config.js`) 
 - **部署**：GitHub Pages
 
