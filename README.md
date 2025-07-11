@@ -56,10 +56,12 @@ npm run serve
 
 ## 部署
 
-網站部署於 GitHub Pages，下列為建置與部署流程摘要：
+網站部署於 GitHub Pages（目前目標路徑為 `https://quanting56.github.io/ubike-map/`，對應 repo 為 `ubike-map`），下列為建置與部署流程摘要：
 
 ```js
-// 先確保 vue.config.js 中 publicPath 設定為正確的 repo 名稱
+// 請確保 vue.config.js 中的 publicPath 設定正確，讓路徑符合 GitHub Pages 的子目錄
+
+// vue.config.js
 module.exports = {
   publicPath: process.env.NODE_ENV === 'production'
     ? '/ubike-map/'
@@ -69,7 +71,7 @@ module.exports = {
 
 ```bash
 # 打包生產
-npm run build
+npm run deploy
 
 # 推送 dist 內容到 GitHub Pages
 # 網站已部署於 gh-pages branch
