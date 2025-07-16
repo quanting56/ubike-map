@@ -35,6 +35,12 @@
       <!-- 地圖區塊 -->
       <div class="map-wrapper" :style="{ flex: 1 }">
         <UbikeMap></UbikeMap>
+
+        <!-- Loading 覆蓋層 -->
+        <div v-if="isLoading" class="loading-container">
+          <div class="spinner"></div>
+          <p>站點資料讀取中，請稍後…</p>
+        </div>
       </div>
     </div>
 
@@ -48,8 +54,12 @@ import UbikeAsideMenu from "@/components/UbikeAsideMenu.vue";
 import UbikeMap from "@/components/UbikeMap.vue";
 import UbikeLightbox from "@/components/UbikeLightbox.vue";
 import { onMounted, onBeforeUnmount, ref } from "vue";
+import { useUbikeStore } from "./store/ubikeStore";
 
-// 設定asideMenu和Map的寬度
+// 控制 Loading 覆蓋層
+const isLoading = ref(true);
+
+// 設定 asideMenu 和 Map 的寬度
 const asideWidth = ref(window.innerWidth * 0.25); // 初始寬度預設為25%
 let isDragging = false;
 
@@ -81,10 +91,16 @@ const handleResize = () => {
   if (!isMobile.value) showAside.value = false;
 };
 
-onMounted(() => {
+onMounted(async () => {
   window.addEventListener("mousemove", handleMouseMove);
   window.addEventListener("mouseup", stopDragging);
   window.addEventListener("resize", handleResize);
+
+  await useUbikeStore().fetchLocation();
+  await useUbikeStore().fetchAllStation();
+
+  // 資料就緒後，關閉 Loading
+  isLoading.value = false;
 });
 
 onBeforeUnmount(() => {
@@ -162,6 +178,35 @@ nav {
   .map-wrapper {
     height: 100%;
     overflow: hidden;
+  }
+}
+
+/* Loading 覆蓋層 */
+.loading-container {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+  color: #fafafa;
+}
+
+.spinner {
+  width: 48px;
+  height: 48px;
+  border: 5px solid #cccccc;
+  border-top: 5px solid #3b82f6;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 12px;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
   }
 }
 </style>
